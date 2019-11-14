@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>一、存储桶 | 轻存储开发文档</title>
+    <meta name="description" content="轻存储开发文档">
+    
+    
+    <link rel="preload" href="/WareHouseAPI/assets/css/0.styles.43764912.css" as="style"><link rel="preload" href="/WareHouseAPI/assets/js/app.f32bcce1.js" as="script"><link rel="preload" href="/WareHouseAPI/assets/js/2.5cce3cc5.js" as="script"><link rel="preload" href="/WareHouseAPI/assets/js/6.b2a79224.js" as="script"><link rel="prefetch" href="/WareHouseAPI/assets/js/3.fe30f6d9.js"><link rel="prefetch" href="/WareHouseAPI/assets/js/4.f97b4586.js"><link rel="prefetch" href="/WareHouseAPI/assets/js/5.afff0444.js"><link rel="prefetch" href="/WareHouseAPI/assets/js/7.7c7c5df6.js">
+    <link rel="stylesheet" href="/WareHouseAPI/assets/css/0.styles.43764912.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/WareHouseAPI/" class="home-link router-link-active"><!----> <span class="site-name">轻存储开发文档</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/WareHouseAPI/" class="nav-link">Home</a></div><div class="nav-item"><a href="https://warehouse.ylmc2018.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  API
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://ylmc2018.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  External
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/WareHouseAPI/" class="nav-link">Home</a></div><div class="nav-item"><a href="https://warehouse.ylmc2018.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  API
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="https://ylmc2018.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  External
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="一、存储桶"><a href="#一、存储桶" class="header-anchor">#</a> 一、存储桶</h1> <h2 id="接口前缀"><a href="#接口前缀" class="header-anchor">#</a> 接口前缀</h2> <div class="language- extra-class"><pre class="language-text"><code>http://warehouse.ylmc2018.cn
+</code></pre></div><h2 id="_1-1-查询所有存储桶信息"><a href="#_1-1-查询所有存储桶信息" class="header-anchor">#</a> 1.1 查询所有存储桶信息</h2> <h3 id="接口地址"><a href="#接口地址" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/WStorageBucket
+</code></pre></div><h3 id="无参数-get请求"><a href="#无参数-get请求" class="header-anchor">#</a> 无参数,get请求</h3> <h3 id="展示"><a href="#展示" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>[{
+	&quot;sb_id&quot;: 36,
+	&quot;sb_name&quot;: &quot;北边仓库&quot;,
+	&quot;sb_capability&quot;: 10000,
+	&quot;sb_existence&quot;: 0,
+	&quot;sb_tablename&quot;: &quot;w_goods_8c69eb6&quot;,
+	&quot;sb_remarks&quot;: &quot;阿道夫&quot;,
+	&quot;sb_flag&quot;: 0
+}
+</code></pre></div><h2 id="_1-2-添加存储桶，添加仓库"><a href="#_1-2-添加存储桶，添加仓库" class="header-anchor">#</a> 1.2 添加存储桶，添加仓库</h2> <h3 id="接口地址-2"><a href="#接口地址-2" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/WStorageBucket
+</code></pre></div><h3 id="请求方式：post"><a href="#请求方式：post" class="header-anchor">#</a> 请求方式：POST</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>sb_name</td> <td>string</td> <td>存储桶名称</td></tr> <tr><td>sb_capability</td> <td>int</td> <td>存储桶容量</td></tr> <tr><td>sb_existence</td> <td>int</td> <td>存储桶已使用</td></tr> <tr><td>sb_remarks</td> <td>string</td> <td>备注说明</td></tr></tbody></table> <h3 id="插入成功后显示code-0"><a href="#插入成功后显示code-0" class="header-anchor">#</a> 插入成功后显示code=0</h3> <h2 id="_1-3-删除仓库"><a href="#_1-3-删除仓库" class="header-anchor">#</a> 1.3 删除仓库</h2> <h3 id="接口地址-3"><a href="#接口地址-3" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/WStorageBucket
+</code></pre></div><h3 id="请求方式：delete"><a href="#请求方式：delete" class="header-anchor">#</a> 请求方式：Delete</h3> <h3 id="说明"><a href="#说明" class="header-anchor">#</a> 说明</h3> <h4 id="参数为id地址传递，例如要删除id为40的仓库传递地址为"><a href="#参数为id地址传递，例如要删除id为40的仓库传递地址为" class="header-anchor">#</a> 参数为id地址传递，例如要删除id为40的仓库传递地址为</h4> <div class="language- extra-class"><pre class="language-text"><code>/api/WStorageBucket/40
+</code></pre></div><h3 id="删除成功后显示code-0"><a href="#删除成功后显示code-0" class="header-anchor">#</a> 删除成功后显示code=0</h3> <h2 id="_1-4-修改仓库信息"><a href="#_1-4-修改仓库信息" class="header-anchor">#</a> 1.4 修改仓库信息</h2> <h3 id="接口地址-4"><a href="#接口地址-4" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/WStorageBucket
+</code></pre></div><h3 id="请求方式：put"><a href="#请求方式：put" class="header-anchor">#</a> 请求方式：Put</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>sb_id</td> <td>int</td> <td>要修改的存储桶id</td></tr> <tr><td>sb_name</td> <td>string</td> <td>修改后存储桶名称</td></tr> <tr><td>sb_capability</td> <td>int</td> <td>修改后存储桶容量</td></tr> <tr><td>sb_existence</td> <td>int</td> <td>修改后存储桶使用量</td></tr> <tr><td>sb_remarks</td> <td>string</td> <td>修改后的备注</td></tr></tbody></table> <h3 id="修改成功后显示code-0"><a href="#修改成功后显示code-0" class="header-anchor">#</a> 修改成功后显示code=0</h3> <h2 id="_1-5-查询所有仓库的id和名称"><a href="#_1-5-查询所有仓库的id和名称" class="header-anchor">#</a> 1.5 查询所有仓库的id和名称</h2> <h3 id="接口地址-5"><a href="#接口地址-5" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/WStorageBucket/queryBucketAndName
+
+</code></pre></div><h3 id="无参数，get请求"><a href="#无参数，get请求" class="header-anchor">#</a> 无参数，Get请求</h3> <h3 id="展示-2"><a href="#展示-2" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>  {
+	&quot;data&quot;: [{
+		&quot;sb_id&quot;: &quot;36&quot;,
+		&quot;sb_name&quot;: &quot;北边仓库&quot;
+	}, {
+		&quot;sb_id&quot;: &quot;37&quot;,
+		&quot;sb_name&quot;: &quot;东边仓库&quot;
+	}, {
+		&quot;sb_id&quot;: &quot;38&quot;,
+		&quot;sb_name&quot;: &quot;南边仓库&quot;
+	}, {
+		&quot;sb_id&quot;: &quot;39&quot;,
+		&quot;sb_name&quot;: &quot;中间仓库&quot;
+	}, {
+		&quot;sb_id&quot;: &quot;40&quot;,
+		&quot;sb_name&quot;: &quot;东南仓库&quot;
+	}, {
+		&quot;sb_id&quot;: &quot;41&quot;,
+		&quot;sb_name&quot;: &quot;修改了&quot;
+	}, {
+		&quot;sb_id&quot;: &quot;42&quot;,
+		&quot;sb_name&quot;: &quot;王老头&quot;
+	}]
+}
+
+</code></pre></div><h1 id="二、顾客"><a href="#二、顾客" class="header-anchor">#</a> 二、顾客</h1> <h2 id="接口前缀-2"><a href="#接口前缀-2" class="header-anchor">#</a> 接口前缀</h2> <div class="language- extra-class"><pre class="language-text"><code>http://warehouse.ylmc2018.cn
+</code></pre></div><h2 id="_2-1-分页查询客户信息"><a href="#_2-1-分页查询客户信息" class="header-anchor">#</a> 2.1 分页查询客户信息</h2> <h3 id="接口地址-6"><a href="#接口地址-6" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/pageselectcustomer
+</code></pre></div><h3 id="请求方式：get"><a href="#请求方式：get" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>pagenum</td> <td>int</td> <td>页号</td></tr> <tr><td>pagesize</td> <td>int</td> <td>每页数</td></tr></tbody></table> <h3 id="展示-3"><a href="#展示-3" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;msg&quot;: &quot;查询成功了&quot;,
+	&quot;total&quot;: 7,
+	&quot;code&quot;: 0,
+	&quot;data&quot;: [{
+		&quot;customer_id&quot;: &quot;20&quot;,
+		&quot;customer_name&quot;: &quot;李晓霞&quot;,
+		&quot;customer_address&quot;: &quot;规范规定&quot;,
+		&quot;customer_phone&quot;: &quot;13333333333&quot;,
+		&quot;customer_linkman&quot;: &quot;周佳琪&quot;,
+		&quot;customer_account&quot;: &quot;34242342423432&quot;,
+		&quot;customer_bank&quot;: &quot;股份大股东&quot;,
+		&quot;customer_taxpayerid&quot;: &quot;4253534&quot;
+	}]
+}
+</code></pre></div><h2 id="_2-2-按条件查询客户"><a href="#_2-2-按条件查询客户" class="header-anchor">#</a> 2.2 按条件查询客户</h2> <h3 id="接口地址-7"><a href="#接口地址-7" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/searchpageselectcustomer
+</code></pre></div><h3 id="请求方式：get-2"><a href="#请求方式：get-2" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>pagenum</td> <td>int</td> <td>页号</td></tr> <tr><td>pagesize</td> <td>int</td> <td>每页数</td></tr> <tr><td>columnname</td> <td>string</td> <td>列名</td></tr> <tr><td>selectvalue</td> <td>string</td> <td>列值</td></tr></tbody></table> <h3 id="展示-4"><a href="#展示-4" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;msg&quot;: &quot;查询成功&quot;,
+	&quot;total&quot;: 1,
+	&quot;code&quot;: 0,
+	&quot;data&quot;: [{
+		&quot;customer_id&quot;: &quot;25&quot;,
+		&quot;customer_name&quot;: &quot;张胜男&quot;,
+		&quot;customer_address&quot;: &quot;sdfsdfsfsf&quot;,
+		&quot;customer_phone&quot;: &quot;15866666666&quot;,
+		&quot;customer_linkman&quot;: &quot;sdfsf&quot;,
+		&quot;customer_account&quot;: &quot;979879879879&quot;,
+		&quot;customer_bank&quot;: &quot;dfgdfgdfgdfgdg&quot;,
+		&quot;customer_taxpayerid&quot;: &quot;9879879879879879&quot;
+	}]
+}
+</code></pre></div><h2 id="_2-3-插入客户信息"><a href="#_2-3-插入客户信息" class="header-anchor">#</a> 2.3 插入客户信息</h2> <h3 id="接口地址-8"><a href="#接口地址-8" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/insertcustomer
+</code></pre></div><h3 id="请求方式：post-2"><a href="#请求方式：post-2" class="header-anchor">#</a> 请求方式：Post</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>customer_name</td> <td>string</td> <td>顾客主体名称</td></tr> <tr><td>customer_address</td> <td>string</td> <td>顾客家庭地址</td></tr> <tr><td>customer_phone</td> <td>string</td> <td>顾客电话</td></tr> <tr><td>customer_linkman</td> <td>string</td> <td>顾客主体联系人</td></tr> <tr><td>customer_account</td> <td>string</td> <td>顾客银行卡号</td></tr> <tr><td>customer_bank</td> <td>string</td> <td>顾客开户银行</td></tr> <tr><td>customer_taxpayerid</td> <td>string</td> <td>纳税人识别号</td></tr></tbody></table> <h3 id="插入成功"><a href="#插入成功" class="header-anchor">#</a> 插入成功</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;msg&quot;: &quot;插入成功&quot;,
+    &quot;code&quot;: 0
+}
+</code></pre></div><h2 id="_2-4-删除客户信息"><a href="#_2-4-删除客户信息" class="header-anchor">#</a> 2.4 删除客户信息</h2> <h3 id="接口地址-9"><a href="#接口地址-9" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/deletecustomermessage
+</code></pre></div><h3 id="请求方式：delete-2"><a href="#请求方式：delete-2" class="header-anchor">#</a> 请求方式：Delete</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>customer_id</td> <td>int</td> <td>要删除的顾客的id</td></tr></tbody></table> <h3 id="删除成功"><a href="#删除成功" class="header-anchor">#</a> 删除成功</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;msg&quot;: &quot;已删除&quot;,
+    &quot;code&quot;: 0
+}
+</code></pre></div><h2 id="_2-5-根据id修改客户信息"><a href="#_2-5-根据id修改客户信息" class="header-anchor">#</a> 2.5 根据id修改客户信息</h2> <h3 id="请求方式：put-2"><a href="#请求方式：put-2" class="header-anchor">#</a> 请求方式：Put</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>customer_id</td> <td>int</td> <td>要修改的顾客的id</td></tr> <tr><td>customer_name</td> <td>string</td> <td>顾客主体名称</td></tr> <tr><td>customer_address</td> <td>string</td> <td>顾客家庭地址</td></tr> <tr><td>customer_phone</td> <td>string</td> <td>顾客电话</td></tr> <tr><td>customer_linkman</td> <td>string</td> <td>顾客主体联系人</td></tr> <tr><td>customer_account</td> <td>string</td> <td>顾客银行卡号</td></tr> <tr><td>customer_bank</td> <td>string</td> <td>顾客开户银行</td></tr> <tr><td>customer_taxpayerid</td> <td>string</td> <td>纳税人识别号</td></tr></tbody></table> <h3 id="修改成功"><a href="#修改成功" class="header-anchor">#</a> 修改成功</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;msg&quot;: &quot;修改成功&quot;,
+    &quot;code&quot;: 0
+}
+</code></pre></div><h1 id="三、经销商"><a href="#三、经销商" class="header-anchor">#</a> 三、经销商</h1> <h2 id="接口前缀-3"><a href="#接口前缀-3" class="header-anchor">#</a> 接口前缀</h2> <div class="language- extra-class"><pre class="language-text"><code>http://warehouse.ylmc2018.cn
+</code></pre></div><h2 id="_3-1-查询所有经销商id和名称"><a href="#_3-1-查询所有经销商id和名称" class="header-anchor">#</a> 3.1 查询所有经销商id和名称</h2> <h3 id="接口地址-10"><a href="#接口地址-10" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/findallfirmname
+</code></pre></div><h3 id="无参数-get请求-2"><a href="#无参数-get请求-2" class="header-anchor">#</a> 无参数 Get请求</h3> <h3 id="展示-5"><a href="#展示-5" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;msg&quot;: &quot;查询成功&quot;,
+	&quot;code&quot;: 0,
+	&quot;data&quot;: [{
+		&quot;firm_id&quot;: &quot;2&quot;,
+		&quot;firm_name&quot;: &quot;张家口科技&quot;
+	}, {
+		&quot;firm_id&quot;: &quot;3&quot;,
+		&quot;firm_name&quot;: &quot;河北省大友中科科技&quot;
+	}, {
+		&quot;firm_id&quot;: &quot;4646467&quot;,
+		&quot;firm_name&quot;: &quot;北京字节跳动科技&quot;
+	}, {
+		&quot;firm_id&quot;: &quot;4646468&quot;,
+		&quot;firm_name&quot;: &quot;河北强大科技有限&quot;
+	}
+}
+</code></pre></div><h2 id="_3-2-分页查询所有经销商"><a href="#_3-2-分页查询所有经销商" class="header-anchor">#</a> 3.2 分页查询所有经销商</h2> <h3 id="接口地址-11"><a href="#接口地址-11" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/pageselectfirm
+</code></pre></div><h3 id="请求方式：get-3"><a href="#请求方式：get-3" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>pagenum</td> <td>int</td> <td>页号</td></tr> <tr><td>pagesize</td> <td>int</td> <td>每页数量</td></tr></tbody></table> <h3 id="展示-6"><a href="#展示-6" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;msg&quot;: &quot;分页查询商户成功&quot;,
+	&quot;total&quot;: 11,
+	&quot;code&quot;: 0,
+	&quot;data&quot;: [{
+		&quot;firm_id&quot;: &quot;2&quot;,
+		&quot;firm_name&quot;: &quot;张家口科技&quot;,
+		&quot;firm_address&quot;: &quot;131312&quot;,
+		&quot;firm_phone&quot;: &quot;13&quot;,
+		&quot;firm_linkman&quot;: &quot;1313&quot;,
+		&quot;firm_account&quot;: &quot;131&quot;,
+		&quot;firm_bank&quot;: &quot;3131&quot;,
+		&quot;firm_taxpayerid&quot;: &quot;131&quot;,
+		&quot;firm_flag&quot;: 0
+	}]
+}
+</code></pre></div><h2 id="_3-3-添加经销商信息"><a href="#_3-3-添加经销商信息" class="header-anchor">#</a> 3.3 添加经销商信息</h2> <h3 id="接口地址-12"><a href="#接口地址-12" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/insertfirm
+</code></pre></div><h3 id="请求方式：post-3"><a href="#请求方式：post-3" class="header-anchor">#</a> 请求方式：Post</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>firm_name</td> <td>string</td> <td>经销商主体名称</td></tr> <tr><td>firm_address</td> <td>string</td> <td>经销商工商地址</td></tr> <tr><td>firm_phone</td> <td>string</td> <td>联系方式</td></tr> <tr><td>firm_linkman</td> <td>string</td> <td>经销商联系人</td></tr> <tr><td>firm_account</td> <td>string</td> <td>经销商开户账号</td></tr> <tr><td>firm_bank</td> <td>string</td> <td>经销商开户行</td></tr> <tr><td>firm_taxpayerid</td> <td>string</td> <td>纳税人识别号</td></tr></tbody></table> <h3 id="插入成功-2"><a href="#插入成功-2" class="header-anchor">#</a> 插入成功</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;msg&quot;: &quot;注册成功!&quot;,
+    &quot;code&quot;: 0
+}
+</code></pre></div><h2 id="_3-4-删除指定id的经销商信息"><a href="#_3-4-删除指定id的经销商信息" class="header-anchor">#</a> 3.4 删除指定id的经销商信息</h2> <h3 id="接口地址-13"><a href="#接口地址-13" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/deletefirmmessage
+</code></pre></div><h3 id="请求方式：delete-3"><a href="#请求方式：delete-3" class="header-anchor">#</a> 请求方式：Delete</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>firm_id</td> <td>int</td> <td>要删除的经销商id</td></tr></tbody></table> <h3 id="删除成功-2"><a href="#删除成功-2" class="header-anchor">#</a> 删除成功</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;msg&quot;: &quot;已删除&quot;,
+    &quot;code&quot;: 0
+}
+</code></pre></div><h2 id="_3-5-精确条件查询经销商"><a href="#_3-5-精确条件查询经销商" class="header-anchor">#</a> 3.5 精确条件查询经销商</h2> <h3 id="接口地址-14"><a href="#接口地址-14" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/FindFirmByExample
+</code></pre></div><h3 id="请求方式：get-4"><a href="#请求方式：get-4" class="header-anchor">#</a> 请求方式：Get</h3> <h3 id="说明-2"><a href="#说明-2" class="header-anchor">#</a> 说明:</h3> <blockquote><p>以下的参数传递任意一个或者多个即可</p></blockquote> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>firm_name</td> <td>string</td> <td>经销商主体名称</td></tr> <tr><td>firm_address</td> <td>string</td> <td>经销商工商地址</td></tr> <tr><td>firm_phone</td> <td>string</td> <td>联系方式</td></tr> <tr><td>firm_linkman</td> <td>string</td> <td>经销商联系人</td></tr> <tr><td>firm_account</td> <td>string</td> <td>经销商开户账号</td></tr> <tr><td>firm_bank</td> <td>string</td> <td>经销商开户行</td></tr> <tr><td>firm_taxpayerid</td> <td>string</td> <td>纳税人识别号</td></tr></tbody></table> <h3 id="展示-7"><a href="#展示-7" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;total&quot;: 1,
+	&quot;totalPage&quot;: 1,
+	&quot;items&quot;: [{
+		&quot;firm_id&quot;: &quot;3&quot;,
+		&quot;firm_name&quot;: &quot;河北省大友中科科技&quot;,
+		&quot;firm_address&quot;: &quot;河北省石家庄市裕华区&quot;,
+		&quot;firm_phone&quot;: &quot;15532369999&quot;,
+		&quot;firm_linkman&quot;: &quot;主键&quot;,
+		&quot;firm_account&quot;: &quot;621701300042320233&quot;,
+		&quot;firm_bank&quot;: &quot;河北省建设银行&quot;,
+		&quot;firm_taxpayerid&quot;: &quot;456465465&quot;,
+		&quot;firm_flag&quot;: 0
+	}]
+}
+</code></pre></div><h2 id="_3-6-根据顾客主体名称模糊查询"><a href="#_3-6-根据顾客主体名称模糊查询" class="header-anchor">#</a> 3.6 根据顾客主体名称模糊查询</h2> <h3 id="接口地址-15"><a href="#接口地址-15" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/queryDimFirmIdAndName
+</code></pre></div><h3 id="请求方式：get-5"><a href="#请求方式：get-5" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>firm_name</td> <td>string</td> <td>经销商主体名称</td></tr></tbody></table> <h3 id="展示-8"><a href="#展示-8" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;msg&quot;: &quot;查询成功了！&quot;,
+	&quot;code&quot;: 0,
+	&quot;data&quot;: [{
+		&quot;firm_id&quot;: 3,
+		&quot;firm_name&quot;: &quot;河北省大友中科科技&quot;
+	}, {
+		&quot;firm_id&quot;: 4,
+		&quot;firm_name&quot;: &quot;河北藤山看&quot;
+	}, {
+		&quot;firm_id&quot;: 4646468,
+		&quot;firm_name&quot;: &quot;河北强大科技有限&quot;
+	}, {
+		&quot;firm_id&quot;: 4646475,
+		&quot;firm_name&quot;: &quot;河北金融公司&quot;
+	}]
+}
+</code></pre></div><h1 id="四、商品"><a href="#四、商品" class="header-anchor">#</a> 四、商品</h1> <h2 id="接口前缀-4"><a href="#接口前缀-4" class="header-anchor">#</a> 接口前缀</h2> <div class="language- extra-class"><pre class="language-text"><code>http://warehouse.ylmc2018.cn
+</code></pre></div><h2 id="_4-1-分页查询所有商品信息-或根据条件模糊查询"><a href="#_4-1-分页查询所有商品信息-或根据条件模糊查询" class="header-anchor">#</a> 4.1 分页查询所有商品信息,或根据条件模糊查询</h2> <h3 id="接口地址-16"><a href="#接口地址-16" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/Goods
+</code></pre></div><h3 id="请求方式：get-6"><a href="#请求方式：get-6" class="header-anchor">#</a> 请求方式：Get</h3> <blockquote><p>以下的参数的可有可无，默认页号为1，每页数为5</p></blockquote> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>pagenNum</td> <td>int</td> <td>页号</td></tr> <tr><td>pageSize</td> <td>int</td> <td>每页数</td></tr> <tr><td>GoodsId</td> <td>string</td> <td>商品编号</td></tr> <tr><td>GoodsName</td> <td>string</td> <td>商品名称</td></tr> <tr><td>GoodsTypeId</td> <td>string</td> <td>商品类别id</td></tr></tbody></table> <h3 id="展示-9"><a href="#展示-9" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;total&quot;: 3,
+	&quot;totalPage&quot;: 1,
+	&quot;items&quot;: [{
+		&quot;goods_id&quot;: 68,
+		&quot;goods_bid&quot;: &quot;18.0&quot;,
+		&quot;goods_name&quot;: &quot;钢铁二号&quot;,
+		&quot;goods_image&quot;: &quot;www.baidu.com&quot;,
+		&quot;goods_spec&quot;: &quot;1000*1000&quot;,
+		&quot;goods_unit&quot;: &quot;斤&quot;,
+		&quot;goods_tax&quot;: &quot;30.0&quot;,
+		&quot;goods_model&quot;: &quot;44646464&quot;,
+		&quot;goods_type_id&quot;: &quot;18&quot;,
+		&quot;goods_total&quot;: 30740
+	}
+}
+</code></pre></div><h2 id="_4-2-添加商品信息"><a href="#_4-2-添加商品信息" class="header-anchor">#</a> 4.2 添加商品信息</h2> <h3 id="接口地址-17"><a href="#接口地址-17" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/Goods
+</code></pre></div><h3 id="请求方式：post-4"><a href="#请求方式：post-4" class="header-anchor">#</a> 请求方式：Post</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>goods_bid</td> <td>string</td> <td>商品进价</td></tr> <tr><td>goods_name</td> <td>string</td> <td>商品名称</td></tr> <tr><td>goods_image</td> <td>string</td> <td>商品照片</td></tr> <tr><td>goods_spec</td> <td>string</td> <td>商品规格</td></tr> <tr><td>goods_unit</td> <td>string</td> <td>商品单位</td></tr> <tr><td>goods_tax</td> <td>string</td> <td>税</td></tr> <tr><td>goods_model</td> <td>string</td> <td>商品型号</td></tr> <tr><td>goods_type_id</td> <td>string</td> <td>商品类型id</td></tr> <tr><td>goods_total</td> <td>int</td> <td>商品总量</td></tr></tbody></table> <h3 id="插入成功-code-0"><a href="#插入成功-code-0" class="header-anchor">#</a> 插入成功 code=0</h3> <h2 id="_4-3-删除指定id的商品信息"><a href="#_4-3-删除指定id的商品信息" class="header-anchor">#</a> 4.3 删除指定id的商品信息</h2> <h3 id="接口地址-18"><a href="#接口地址-18" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/Goods
+</code></pre></div><h3 id="请求方式：delete-4"><a href="#请求方式：delete-4" class="header-anchor">#</a> 请求方式：Delete</h3> <h4 id="参数为id地址传递，例如要删除id为60的商品信息的接口为"><a href="#参数为id地址传递，例如要删除id为60的商品信息的接口为" class="header-anchor">#</a> 参数为id地址传递，例如要删除id为60的商品信息的接口为</h4> <div class="language- extra-class"><pre class="language-text"><code>/api/Goods/60
+</code></pre></div><h2 id="_4-4-根据商品id修改商品信息"><a href="#_4-4-根据商品id修改商品信息" class="header-anchor">#</a> 4.4 根据商品id修改商品信息</h2> <h3 id="接口地址-19"><a href="#接口地址-19" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/Goods
+</code></pre></div><h3 id="请求方式：put-3"><a href="#请求方式：put-3" class="header-anchor">#</a> 请求方式：Put</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>goods_id</td> <td>int</td> <td>商品id</td></tr> <tr><td>goods_bid</td> <td>string</td> <td>商品进价</td></tr> <tr><td>goods_name</td> <td>string</td> <td>商品名称</td></tr> <tr><td>goods_image</td> <td>string</td> <td>商品照片</td></tr> <tr><td>goods_spec</td> <td>string</td> <td>商品规格</td></tr> <tr><td>goods_unit</td> <td>string</td> <td>商品单位</td></tr> <tr><td>goods_tax</td> <td>string</td> <td>税</td></tr> <tr><td>goods_model</td> <td>string</td> <td>商品型号</td></tr> <tr><td>goods_type_id</td> <td>string</td> <td>商品类型id</td></tr> <tr><td>goods_total</td> <td>int</td> <td>商品总量</td></tr></tbody></table> <h2 id="_4-5-查询商品id及名称"><a href="#_4-5-查询商品id及名称" class="header-anchor">#</a> 4.5 查询商品ID及名称</h2> <h3 id="接口地址-20"><a href="#接口地址-20" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/Goods/showIdAndName
+</code></pre></div><h3 id="请求方式：get-无参数传递"><a href="#请求方式：get-无参数传递" class="header-anchor">#</a> 请求方式：Get 无参数传递</h3> <h3 id="展示-10"><a href="#展示-10" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;data&quot;: [
+        {
+            &quot;goods_id&quot;: 69,
+            &quot;goods_name&quot;: &quot;钢铁一号&quot;
+        },
+        {
+            &quot;goods_id&quot;: 70,
+            &quot;goods_name&quot;: &quot;钢铁三号&quot;
+        }
+    ]
+}
+</code></pre></div><h2 id="_4-6-根据商品名称模糊查询商品id和名称"><a href="#_4-6-根据商品名称模糊查询商品id和名称" class="header-anchor">#</a> 4.6 根据商品名称模糊查询商品id和名称</h2> <h3 id="接口地址-21"><a href="#接口地址-21" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/Goods/dimquerybucketname
+</code></pre></div><h3 id="请求方式：get-7"><a href="#请求方式：get-7" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>goods_name</td> <td>string</td> <td>商品名称</td></tr></tbody></table> <h3 id="展示-11"><a href="#展示-11" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;data&quot;: [
+        {
+            &quot;goods_id&quot;: 70,
+            &quot;goods_name&quot;: &quot;钢铁三号&quot;
+        }
+    ]
+}
+</code></pre></div><h1 id="五、商品类型"><a href="#五、商品类型" class="header-anchor">#</a> 五、商品类型</h1> <h2 id="接口前缀-5"><a href="#接口前缀-5" class="header-anchor">#</a> 接口前缀</h2> <div class="language- extra-class"><pre class="language-text"><code>http://warehouse.ylmc2018.cn
+</code></pre></div><h2 id="_5-1-查询所有的商品类型"><a href="#_5-1-查询所有的商品类型" class="header-anchor">#</a> 5.1 查询所有的商品类型</h2> <h3 id="接口地址-22"><a href="#接口地址-22" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/GoodsType
+</code></pre></div><h3 id="请求方式：get-无参数传递-2"><a href="#请求方式：get-无参数传递-2" class="header-anchor">#</a> 请求方式：Get 无参数传递</h3> <h3 id="展示-12"><a href="#展示-12" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>[{
+	&quot;goods_type_id&quot;: 1,
+	&quot;goods_type&quot;: &quot;沙发垫&quot;
+}, {
+	&quot;goods_type_id&quot;: 54,
+	&quot;goods_type&quot;: &quot;蔬菜&quot;
+}]
+</code></pre></div><h2 id="_5-2-增加商品类型"><a href="#_5-2-增加商品类型" class="header-anchor">#</a> 5.2 增加商品类型</h2> <h3 id="接口地址-23"><a href="#接口地址-23" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/GoodsType
+</code></pre></div><h3 id="请求方式：post-5"><a href="#请求方式：post-5" class="header-anchor">#</a> 请求方式：Post</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>goods_type</td> <td>string</td> <td>商品类型</td></tr></tbody></table> <h3 id="插入成功后-返回code-0"><a href="#插入成功后-返回code-0" class="header-anchor">#</a> 插入成功后 返回code=0</h3> <h2 id="_5-3-根据商品类型id删除商品类型"><a href="#_5-3-根据商品类型id删除商品类型" class="header-anchor">#</a> 5.3 根据商品类型ID删除商品类型</h2> <h3 id="接口地址-24"><a href="#接口地址-24" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/GoodsType
+</code></pre></div><h3 id="请求方式：delete-5"><a href="#请求方式：delete-5" class="header-anchor">#</a> 请求方式：Delete</h3> <h4 id="参数为id地址传递，例如要删除id为60的商品类型的接口为"><a href="#参数为id地址传递，例如要删除id为60的商品类型的接口为" class="header-anchor">#</a> 参数为id地址传递，例如要删除id为60的商品类型的接口为</h4> <div class="language- extra-class"><pre class="language-text"><code>/api/GoodsType/60
+</code></pre></div><h3 id="删除成功后-返回code-0"><a href="#删除成功后-返回code-0" class="header-anchor">#</a> 删除成功后 返回code=0</h3> <h2 id="_5-4-修改指定id的商品类型"><a href="#_5-4-修改指定id的商品类型" class="header-anchor">#</a> 5.4 修改指定id的商品类型</h2> <h3 id="接口地址-25"><a href="#接口地址-25" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/GoodsType
+</code></pre></div><h3 id="请求方式：put-4"><a href="#请求方式：put-4" class="header-anchor">#</a> 请求方式：Put</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>goods_type_id</td> <td>int</td> <td>商品类型id</td></tr> <tr><td>goods_type</td> <td>string</td> <td>商品类型</td></tr></tbody></table> <h3 id="修改成功后-返回code-0"><a href="#修改成功后-返回code-0" class="header-anchor">#</a> 修改成功后 返回code=0</h3> <h1 id="六、登录"><a href="#六、登录" class="header-anchor">#</a> 六、登录</h1> <h2 id="接口前缀-6"><a href="#接口前缀-6" class="header-anchor">#</a> 接口前缀</h2> <div class="language- extra-class"><pre class="language-text"><code>http://warehouse.ylmc2018.cn
+</code></pre></div><h2 id="_6-1-注册用户"><a href="#_6-1-注册用户" class="header-anchor">#</a> 6.1 注册用户</h2> <h3 id="接口地址-26"><a href="#接口地址-26" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/insertuser
+</code></pre></div><h3 id="请求方式：post-6"><a href="#请求方式：post-6" class="header-anchor">#</a> 请求方式：Post</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>user_id</td> <td>string</td> <td>登录id</td></tr> <tr><td>user_password</td> <td>string</td> <td>登录密码</td></tr> <tr><td>user_permission</td> <td>int</td> <td>登录等级</td></tr> <tr><td>user_name</td> <td>string</td> <td>用户姓名</td></tr> <tr><td>user_email</td> <td>string</td> <td>用户邮箱</td></tr></tbody></table> <h3 id="插入成功-3"><a href="#插入成功-3" class="header-anchor">#</a> 插入成功</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;msg&quot;: &quot;用户注册成功!&quot;,
+    &quot;code&quot;: 0
+}
+</code></pre></div><h2 id="_6-2-查询所有用户名称"><a href="#_6-2-查询所有用户名称" class="header-anchor">#</a> 6.2 查询所有用户名称</h2> <h3 id="接口地址-27"><a href="#接口地址-27" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/selectusername
+</code></pre></div><h3 id="请求方式：get-无参数传递-3"><a href="#请求方式：get-无参数传递-3" class="header-anchor">#</a> 请求方式：Get 无参数传递</h3> <h3 id="查询成功"><a href="#查询成功" class="header-anchor">#</a> 查询成功</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;msg&quot;: &quot;查询成功&quot;,
+    &quot;code&quot;: 0,
+    &quot;data&quot;: [
+        {
+            &quot;user_id&quot;: &quot;2017016016&quot;,
+            &quot;user_name&quot;: &quot;周家琪&quot;
+        },
+        {
+            &quot;user_id&quot;: &quot;20236666&quot;,
+            &quot;user_name&quot;: &quot;再加上&quot;
+        }
+    ]
+}
+</code></pre></div><h2 id="_6-3-判断指定用户是否存在"><a href="#_6-3-判断指定用户是否存在" class="header-anchor">#</a> 6.3 判断指定用户是否存在</h2> <h3 id="接口地址-28"><a href="#接口地址-28" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/hasuser
+</code></pre></div><h3 id="请求方式：get-8"><a href="#请求方式：get-8" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>user_id</td> <td>string</td> <td>登录id</td></tr></tbody></table> <h3 id="展示-13"><a href="#展示-13" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;msg&quot;: &quot;指定用户已存在&quot;,
+    &quot;code&quot;: 1
+}
+</code></pre></div><h2 id="_6-4-判断用户的邮箱是否存在"><a href="#_6-4-判断用户的邮箱是否存在" class="header-anchor">#</a> 6.4 判断用户的邮箱是否存在</h2> <h3 id="接口地址-29"><a href="#接口地址-29" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/hasemail
+</code></pre></div><h3 id="请求方式：get-9"><a href="#请求方式：get-9" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>user_email</td> <td>string</td> <td>用户邮箱</td></tr></tbody></table> <h3 id="展示-14"><a href="#展示-14" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;msg&quot;: &quot;该邮箱可用!&quot;,
+    &quot;code&quot;: 0
+}
+{
+    &quot;msg&quot;: &quot;该邮箱已存在&quot;,
+    &quot;code&quot;: 1
+}
+</code></pre></div><h2 id="_6-5-判断用户的邮箱和登录是否存在"><a href="#_6-5-判断用户的邮箱和登录是否存在" class="header-anchor">#</a> 6.5 判断用户的邮箱和登录是否存在</h2> <h3 id="接口地址-30"><a href="#接口地址-30" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/hasusernameandemail
+</code></pre></div><h3 id="请求方式：get-10"><a href="#请求方式：get-10" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>user_id</td> <td>string</td> <td>登录id</td></tr> <tr><td>user_email</td> <td>string</td> <td>用户邮箱</td></tr></tbody></table> <h3 id="展示-15"><a href="#展示-15" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;msg&quot;: &quot;此用户不在库&quot;,
+    &quot;code&quot;: 1
+}
+{
+    &quot;msg&quot;: &quot;此用户在库&quot;,
+    &quot;code&quot;: 0
+}
+</code></pre></div><h2 id="_6-6-获取用户权限信息表"><a href="#_6-6-获取用户权限信息表" class="header-anchor">#</a> 6.6 获取用户权限信息表</h2> <h3 id="接口地址-31"><a href="#接口地址-31" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/getusertype
+</code></pre></div><h3 id="请求方式：get-无参数传递-4"><a href="#请求方式：get-无参数传递-4" class="header-anchor">#</a> 请求方式：Get 无参数传递</h3> <h3 id="展示-16"><a href="#展示-16" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;msg&quot;: &quot;获取数据成功&quot;,
+    &quot;code&quot;: 0,
+    &quot;data&quot;: [
+        {
+            &quot;type_id&quot;: 1,
+            &quot;type_name&quot;: &quot;数据管理员&quot;,
+            &quot;type_remarks&quot;: &quot;此类型账户用于查看,分析,统计数据&quot;
+        },
+        {
+            &quot;type_id&quot;: 2,
+            &quot;type_name&quot;: &quot;财务&quot;,
+            &quot;type_remarks&quot;: &quot;此类型账户用于进行对账务的管理&quot;
+        },
+        {
+            &quot;type_id&quot;: 3,
+            &quot;type_name&quot;: &quot;仓库管理员&quot;,
+            &quot;type_remarks&quot;: &quot;此类型账户用于对仓库进行管理&quot;
+        }
+    ]
+}
+</code></pre></div><h2 id="_6-7-根据用户登录id获取用户的邮箱，并对邮箱进行掩盖"><a href="#_6-7-根据用户登录id获取用户的邮箱，并对邮箱进行掩盖" class="header-anchor">#</a> 6.7 根据用户登录id获取用户的邮箱，并对邮箱进行掩盖</h2> <h3 id="接口地址-32"><a href="#接口地址-32" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/fromuseridgetuseremail
+</code></pre></div><h3 id="请求方式：get-11"><a href="#请求方式：get-11" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>user_id</td> <td>string</td> <td>用户登录id</td></tr></tbody></table> <h3 id="展示-17"><a href="#展示-17" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;msg&quot;: &quot;转换完成&quot;,
+    &quot;code&quot;: 0,
+    &quot;data&quot;: &quot;15***368807@163.com&quot;
+}
+</code></pre></div><h2 id="_6-8-向指定邮箱发送6位随机的验证码"><a href="#_6-8-向指定邮箱发送6位随机的验证码" class="header-anchor">#</a> 6.8 向指定邮箱发送6位随机的验证码</h2> <h3 id="接口地址-33"><a href="#接口地址-33" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/send
+</code></pre></div><h3 id="请求方式：get-12"><a href="#请求方式：get-12" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>user_email</td> <td>string</td> <td>用户的邮箱</td></tr></tbody></table> <h3 id="验证码发送后-code-0"><a href="#验证码发送后-code-0" class="header-anchor">#</a> 验证码发送后 code=0</h3> <h2 id="_6-9-校验用户输入的验证码是否正确"><a href="#_6-9-校验用户输入的验证码是否正确" class="header-anchor">#</a> 6.9 校验用户输入的验证码是否正确</h2> <h3 id="接口地址-34"><a href="#接口地址-34" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/checksixcode
+</code></pre></div><h3 id="请求方式：get-13"><a href="#请求方式：get-13" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>user_code</td> <td>string</td> <td>用户输入的验证码</td></tr></tbody></table> <h3 id="返回值：用户验证码输入正确-code-0-用户验证码输入错误-code-1"><a href="#返回值：用户验证码输入正确-code-0-用户验证码输入错误-code-1" class="header-anchor">#</a> 返回值：用户验证码输入正确 code=0 用户验证码输入错误 code=1</h3> <blockquote></blockquote> <h2 id="_6-10-修改用户登录的密码"><a href="#_6-10-修改用户登录的密码" class="header-anchor">#</a> 6.10 修改用户登录的密码</h2> <h3 id="接口地址-35"><a href="#接口地址-35" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/updateuserpsw
+</code></pre></div><h3 id="请求方式：put-5"><a href="#请求方式：put-5" class="header-anchor">#</a> 请求方式：Put</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>user_id</td> <td>string</td> <td>用户登录id</td></tr> <tr><td>user_npassword</td> <td>string</td> <td>用户登录的新密码</td></tr></tbody></table> <h3 id="返回值：密码修改成功-code-0"><a href="#返回值：密码修改成功-code-0" class="header-anchor">#</a> 返回值：密码修改成功 code=0</h3> <h2 id="_6-11-用户登录退出清除session"><a href="#_6-11-用户登录退出清除session" class="header-anchor">#</a> 6.11 用户登录退出清除session</h2> <h3 id="接口地址-36"><a href="#接口地址-36" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/Logout
+</code></pre></div><h3 id="请求方式：post-7"><a href="#请求方式：post-7" class="header-anchor">#</a> 请求方式：Post</h3> <h3 id="返回值为空-执行语句：session-invalidate"><a href="#返回值为空-执行语句：session-invalidate" class="header-anchor">#</a> 返回值为空 执行语句：session.invalidate();</h3> <h2 id="_6-12-用户登录校验-登录成功后写入登录日志"><a href="#_6-12-用户登录校验-登录成功后写入登录日志" class="header-anchor">#</a> 6.12 用户登录校验(登录成功后写入登录日志)</h2> <h3 id="接口地址-37"><a href="#接口地址-37" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/login/login
+</code></pre></div><h3 id="请求方式：get-14"><a href="#请求方式：get-14" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>user_id</td> <td>string</td> <td>用户登录id</td></tr> <tr><td>user_password</td> <td>string</td> <td>用户登录的密码</td></tr></tbody></table> <h3 id="登录显示"><a href="#登录显示" class="header-anchor">#</a> 登录显示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;msg&quot;: &quot;用户名或密码错误&quot;,
+	&quot;code&quot;: 1
+},
+{
+	&quot;msg&quot;: &quot;OK&quot;,
+	&quot;code&quot;: 0,
+	&quot;data&quot;: {
+		&quot;user_id&quot;: &quot;2017016016&quot;,
+		&quot;user_permission&quot;: 0,
+		&quot;user_name&quot;: &quot;周家琪&quot;,
+		&quot;user_email&quot;: &quot;15532368807@163.com&quot;
+	}
+}
+</code></pre></div><h1 id="七、订单"><a href="#七、订单" class="header-anchor">#</a> 七、订单</h1> <h2 id="接口前缀-7"><a href="#接口前缀-7" class="header-anchor">#</a> 接口前缀</h2> <div class="language- extra-class"><pre class="language-text"><code>http://warehouse.ylmc2018.cn
+</code></pre></div><h2 id="_7-1-分页查询所有订单信息"><a href="#_7-1-分页查询所有订单信息" class="header-anchor">#</a> 7.1 分页查询所有订单信息</h2> <h3 id="接口地址-38"><a href="#接口地址-38" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/showpageorder
+</code></pre></div><h3 id="请求方式：get-15"><a href="#请求方式：get-15" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>pagenum</td> <td>int</td> <td>页号</td></tr> <tr><td>pagesize</td> <td>int</td> <td>每页的数量</td></tr></tbody></table> <h3 id="查询成功-2"><a href="#查询成功-2" class="header-anchor">#</a> 查询成功</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;msg&quot;: &quot;查询成功了!&quot;,
+	&quot;totalNumber&quot;: 2,
+	&quot;code&quot;: 0,
+	&quot;data&quot;: [{
+		&quot;outbound_id&quot;: &quot;1&quot;,
+		&quot;outbound_date&quot;: &quot;2019/09/18&quot;,
+		&quot;outbound_sb_id&quot;: &quot;abcdefg&quot;,
+		&quot;outbound_goods_id&quot;: &quot;11&quot;,
+		&quot;outbound_number&quot;: 50,
+		&quot;outbound_person&quot;: &quot;张三&quot;,
+		&quot;customer_id&quot;: &quot;66&quot;,
+		&quot;outbound_flag&quot;: 0
+	}, {
+		&quot;outbound_id&quot;: &quot;2&quot;,
+		&quot;outbound_date&quot;: &quot;2019/09/19&quot;,
+		&quot;outbound_sb_id&quot;: &quot;jlfdj&quot;,
+		&quot;outbound_goods_id&quot;: &quot;12&quot;,
+		&quot;outbound_number&quot;: 60,
+		&quot;outbound_person&quot;: &quot;李四&quot;,
+		&quot;customer_id&quot;: &quot;77&quot;,
+		&quot;outbound_flag&quot;: 0
+	}]
+}
+</code></pre></div><h1 id="八、仓库管理"><a href="#八、仓库管理" class="header-anchor">#</a> 八、仓库管理</h1> <h2 id="接口前缀-8"><a href="#接口前缀-8" class="header-anchor">#</a> 接口前缀</h2> <div class="language- extra-class"><pre class="language-text"><code>http://warehouse.ylmc2018.cn
+</code></pre></div><h2 id="_8-1-根据存储桶总表的sb-id-查询指定sb-id的仓库信息"><a href="#_8-1-根据存储桶总表的sb-id-查询指定sb-id的仓库信息" class="header-anchor">#</a> 8.1 根据存储桶总表的sb_id,查询指定sb_id的仓库信息</h2> <h3 id="接口地址-39"><a href="#接口地址-39" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/WareHouse
+</code></pre></div><h3 id="请求方式：get-16"><a href="#请求方式：get-16" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>pageNum</td> <td>int</td> <td>页号</td></tr> <tr><td>pageSize</td> <td>int</td> <td>每页的数量</td></tr> <tr><td>sb_id</td> <td>int</td> <td>仓库对应的id</td></tr></tbody></table> <h3 id="展示-18"><a href="#展示-18" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;total&quot;: 1,
+	&quot;totalPage&quot;: 1,
+	&quot;items&quot;: [{
+		&quot;goods_id&quot;: 69,
+		&quot;goods_name&quot;: &quot;钢铁一号&quot;,
+		&quot;goods_stack&quot;: 26298,
+		&quot;goods_indate&quot;: &quot;2019-10-20 20:45:20&quot;,
+		&quot;goods_inperson&quot;: &quot;王俊杰&quot;,
+		&quot;goods_source&quot;: 4646468,
+		&quot;firm_name&quot;: &quot;河北强大科技有限&quot;,
+		&quot;goods_remarks&quot;: &quot;&quot;
+	}]
+}
+</code></pre></div><h2 id="_8-2-查询指定的sb-id的简单商品信息包括（商品id，商品名称，商品库存）"><a href="#_8-2-查询指定的sb-id的简单商品信息包括（商品id，商品名称，商品库存）" class="header-anchor">#</a> 8.2 查询指定的sb_id的简单商品信息包括（商品id，商品名称，商品库存）</h2> <h3 id="接口地址-40"><a href="#接口地址-40" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/WareHouse/queryGroup
+</code></pre></div><h3 id="请求方式：get-17"><a href="#请求方式：get-17" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>pageNum</td> <td>int</td> <td>页号</td></tr> <tr><td>pageSize</td> <td>int</td> <td>每页的数量</td></tr> <tr><td>sb_id</td> <td>int</td> <td>仓库对应的id</td></tr></tbody></table> <h3 id="展示-19"><a href="#展示-19" class="header-anchor">#</a> 展示</h3> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;total&quot;: 1,
+	&quot;totalPage&quot;: 1,
+	&quot;items&quot;: [{
+		&quot;goods_id&quot;: 69,
+		&quot;goods_name&quot;: &quot;钢铁一号&quot;,
+		&quot;sumGoods&quot;: 26298
+	}]
+}
+</code></pre></div><h2 id="_8-3-向指定仓库添加指定的商品信息"><a href="#_8-3-向指定仓库添加指定的商品信息" class="header-anchor">#</a> 8.3 向指定仓库添加指定的商品信息</h2> <h3 id="接口地址-41"><a href="#接口地址-41" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/WareHouse
+</code></pre></div><h3 id="请求方式：post-8"><a href="#请求方式：post-8" class="header-anchor">#</a> 请求方式：Post</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>goods_id</td> <td>int</td> <td>商品表中对于的商品的id</td></tr> <tr><td>goods_stack</td> <td>int</td> <td>入库的库存量</td></tr> <tr><td>goods_inperson</td> <td>string</td> <td>经手人姓名</td></tr> <tr><td>goods_source</td> <td>int</td> <td>货源的id</td></tr> <tr><td>goods_remarks</td> <td>string</td> <td>商品备注</td></tr> <tr><td>sb_id</td> <td>int</td> <td>仓库对应的id</td></tr></tbody></table> <h3 id="成功展示-返回-code-0"><a href="#成功展示-返回-code-0" class="header-anchor">#</a> 成功展示 返回 code=0</h3> <h2 id="_8-4-根据商品属性对指定仓库进行模糊查询"><a href="#_8-4-根据商品属性对指定仓库进行模糊查询" class="header-anchor">#</a> 8.4 根据商品属性对指定仓库进行模糊查询</h2> <h3 id="接口地址-42"><a href="#接口地址-42" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/WareHouse/dimQuery
+</code></pre></div><h3 id="请求方式：get-18"><a href="#请求方式：get-18" class="header-anchor">#</a> 请求方式：Get</h3> <blockquote><p>这几个参数为必须传递的参数</p></blockquote> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>pageNum</td> <td>int</td> <td>页号</td></tr> <tr><td>pageSize</td> <td>int</td> <td>每页的数量</td></tr> <tr><td>sb_id</td> <td>int</td> <td>仓库对应的id</td></tr></tbody></table> <blockquote><p>以下的参数可有可无，根据查询条件自行传递</p></blockquote> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>goods_name</td> <td>string</td> <td>商品名称</td></tr> <tr><td>goods_stack</td> <td>int</td> <td>商品的库存量</td></tr> <tr><td>firm_name</td> <td>string</td> <td>经销商名称</td></tr> <tr><td>goods_inperson</td> <td>string</td> <td>经手人</td></tr> <tr><td>goods_indate</td> <td>string</td> <td>商品入库时间</td></tr></tbody></table> <h3 id="展示-20"><a href="#展示-20" class="header-anchor">#</a> 展示</h3> <blockquote><p>这是传递的地址(http://warehouse.ylmc2018.cn/api/WareHouse/dimQuery?pageNum=1&amp;pageSize=2&amp;sb_id=36&amp;goods_inperson=%E6%9D%B0)</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;total&quot;: 1,
+	&quot;totalPage&quot;: 1,
+	&quot;items&quot;: [{
+		&quot;goods_id&quot;: 69,
+		&quot;goods_name&quot;: &quot;钢铁一号&quot;,
+		&quot;goods_stack&quot;: 26298,
+		&quot;goods_indate&quot;: &quot;2019-10-20 20:45:20&quot;,
+		&quot;goods_inperson&quot;: &quot;王俊杰&quot;,
+		&quot;goods_source&quot;: 4646468,
+		&quot;firm_name&quot;: &quot;河北强大科技有限&quot;,
+		&quot;goods_remarks&quot;: &quot;&quot;
+	}]
+}
+</code></pre></div><h2 id="_8-5-自动生成出库的方案"><a href="#_8-5-自动生成出库的方案" class="header-anchor">#</a> 8.5 自动生成出库的方案</h2> <h3 id="接口地址-43"><a href="#接口地址-43" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/WareHouse/getPlan
+</code></pre></div><h3 id="请求方式：get-19"><a href="#请求方式：get-19" class="header-anchor">#</a> 请求方式：Get</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>goods_id</td> <td>int</td> <td>商品总表中的id</td></tr> <tr><td>outSum</td> <td>int</td> <td>出库总量</td></tr></tbody></table> <h3 id="展示-21"><a href="#展示-21" class="header-anchor">#</a> 展示</h3> <blockquote><p>以下请求地址显示结果：(http://warehouse.ylmc2018.cn/api/WareHouse/getPlan?goods_id=69&amp;outSum=500)</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;goodsId&quot;: 69,
+	&quot;goodsName&quot;: &quot;钢铁一号&quot;,
+	&quot;plan&quot;: [{
+		&quot;sbId&quot;: 36,
+		&quot;sbName&quot;: &quot;北边仓库&quot;,
+		&quot;outNum&quot;: 500,
+		&quot;type&quot;: &quot;update&quot;,
+		&quot;id&quot;: 5
+	}]
+}
+</code></pre></div><h2 id="_8-6-根据出库计划进行出库"><a href="#_8-6-根据出库计划进行出库" class="header-anchor">#</a> 8.6 根据出库计划进行出库</h2> <h3 id="接口地址-44"><a href="#接口地址-44" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/api/WareHouse/outStock
+</code></pre></div><h3 id="请求方式：put-6"><a href="#请求方式：put-6" class="header-anchor">#</a> 请求方式：Put</h3> <table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>sbId</td> <td>int</td> <td>出库计划(OutPlan)中的sbId</td></tr> <tr><td>sbName</td> <td>string</td> <td>出库计划(OutPlan)中的sbName</td></tr> <tr><td>Id</td> <td>int</td> <td>出库计划(OutPlan)中的Id</td></tr> <tr><td>outNum</td> <td>int</td> <td>出库计划(OutPlan)中的outNum</td></tr> <tr><td>type</td> <td>string</td> <td>出库计划(OutPlan)中的type</td></tr> <tr><td>goods_id</td> <td>int</td> <td>商品id</td></tr> <tr><td>customer_id</td> <td>int</td> <td>客户Id</td></tr></tbody></table> <h3 id="出库成功后-code-0-并返回goodslist和customer的信息（返回信息以具体测试为准）"><a href="#出库成功后-code-0-并返回goodslist和customer的信息（返回信息以具体测试为准）" class="header-anchor">#</a> 出库成功后 code=0 并返回goodsList和Customer的信息（返回信息以具体测试为准）</h3> <h1 id="九、文件"><a href="#九、文件" class="header-anchor">#</a> 九、文件</h1> <h2 id="接口前缀-9"><a href="#接口前缀-9" class="header-anchor">#</a> 接口前缀</h2> <div class="language- extra-class"><pre class="language-text"><code>http://warehouse.ylmc2018.cn
+</code></pre></div><h2 id="_9-1图片识别并提取文字"><a href="#_9-1图片识别并提取文字" class="header-anchor">#</a> 9.1图片识别并提取文字</h2> <h3 id="接口地址-45"><a href="#接口地址-45" class="header-anchor">#</a> 接口地址</h3> <div class="language- extra-class"><pre class="language-text"><code>/upload/doUpload
+</code></pre></div><table><thead><tr><th>参数名称</th> <th>参数类型</th> <th>说明</th></tr></thead> <tbody><tr><td>file</td> <td>MultipartFile</td> <td>图片文件</td></tr></tbody></table> <h3 id="返回-图片中的所有文字信息"><a href="#返回-图片中的所有文字信息" class="header-anchor">#</a> 返回 图片中的所有文字信息</h3></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/WareHouseAPI/assets/js/app.f32bcce1.js" defer></script><script src="/WareHouseAPI/assets/js/2.5cce3cc5.js" defer></script><script src="/WareHouseAPI/assets/js/6.b2a79224.js" defer></script>
+  </body>
+</html>
